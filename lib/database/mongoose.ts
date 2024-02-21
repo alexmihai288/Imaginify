@@ -19,12 +19,13 @@ if (!cached) {
 export const connectToDatabase = async () => {
   if (cached.conn) return cached.conn;
 
+  console.log(1);
   if (!MONGODB_URL) throw new Error("Missing MongoDB_URL");
 
   cached.promise =
     cached.promise ||
     mongoose.connect(MONGODB_URL, {
-      dbName: "Imaginify",
+      dbName: "imaginify",
       bufferCommands: false,
     });
 
