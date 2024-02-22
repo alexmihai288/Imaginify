@@ -78,7 +78,20 @@ export const TransformationForm = ({
   const onSelectFieldHandler = (
     value: string,
     onChangeField: (value: string) => void
-  ) => {};
+  ) => {
+    const imageSize = aspectRatioOptions[value as AspectRatioKey];
+
+    setImage((prevState: any) => ({
+      ...prevState,
+      aspectRatioOptions: imageSize.aspectRatio,
+      width: imageSize.width,
+      height: imageSize.height,
+    }));
+
+    setNewTransformation(transformationType.config);
+
+    return onChangeField(value);
+  };
 
   const onInputChangeHandler = (
     fieldName: string,
