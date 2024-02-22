@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AspectRatioKey, debounce } from "../../lib/utils";
+import { AspectRatioKey, debounce, deepMergeObjects } from "../../lib/utils";
+import { updateCredits } from "../../lib/actions/user.actions";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -54,6 +55,8 @@ export const TransformationForm = ({
 
   const [newTransformation, setNewTransformation] =
     useState<Transformations | null>(null);
+
+  const [isPending, startTransition] = useTransition();
 
   const initialsValues =
     data && action === "Update"
@@ -112,7 +115,19 @@ export const TransformationForm = ({
     }, 1000);
   };
 
-  const onTransformHandler = async () => {};
+  //TODO
+  const onTransformHandler = async () => {
+    setIsTransforming(true);
+
+    setTransformationConfig(
+      deepMergeObjects(newTransformation, transformationConfig)
+    );
+    setNewTransformation(null);
+
+    startTransition(async () => {
+      // await updateCredits(userId, creditFee);
+    });
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
