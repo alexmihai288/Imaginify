@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AspectRatioKey } from "../../lib/utils";
+import { AspectRatioKey, debounce } from "../../lib/utils";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -98,9 +98,21 @@ export const TransformationForm = ({
     value: string,
     type: string,
     onChangeField: (value: string) => void
-  ) => {};
+  ) => {
+    debounce(() => {
+      setNewTransformation((prevState: any) => ({
+        ...prevState,
+        [type]: {
+          ...prevState?.[type],
+          [fieldName === "prompt" ? "prompt" : "to"]: value,
+        },
+      }));
 
-  const onTransformHandler = () => {};
+      return onChangeField(value);
+    }, 1000);
+  };
+
+  const onTransformHandler = async () => {};
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
