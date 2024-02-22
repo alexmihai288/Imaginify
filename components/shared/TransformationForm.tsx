@@ -43,7 +43,12 @@ export const TransformationForm = ({
   userId,
   type,
   creditBalance,
+  config = null,
 }: TransformationFormProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTransforming, setIsTransforming] = useState(false);
+  const [transformationConfig, setTransformationConfig] = useState(config);
+
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data);
 
@@ -72,6 +77,13 @@ export const TransformationForm = ({
 
   const onSelectFieldHandler = (
     value: string,
+    onChangeField: (value: string) => void
+  ) => {};
+
+  const onInputChangeHandler = (
+    fieldName: string,
+    value: string,
+    type: string,
     onChangeField: (value: string) => void
   ) => {};
 
@@ -122,10 +134,53 @@ export const TransformationForm = ({
                 type === "remove" ? "Object to remove" : "Object to recolor"
               }
               className="w-full"
-              render={({ field }) => <Input />}
+              render={({ field }) => (
+                <Input
+                  value={field.value}
+                  className="input-field"
+                  onChange={(e) =>
+                    onInputChangeHandler(
+                      "prompt",
+                      e.target.value,
+                      type,
+                      field.onChange
+                    )
+                  }
+                />
+              )}
             />
+
+            {type == "recolor" && (
+              <CustomField
+                control={form.control}
+                name="color"
+                formLabel="Replacement Color"
+                className="w-full"
+                render={({ field }) => (
+                  <Input
+                    value={field.value}
+                    className="input-field"
+                    onChange={(e) =>
+                      onInputChangeHandler(
+                        "prompt",
+                        e.target.value,
+                        type,
+                        field.onChange
+                      )
+                    }
+                  />
+                )}
+              />
+            )}
           </div>
         )}
+        <Button
+          type="submit"
+          className="submit-button capitalize"
+          disabled={isSubmitting}
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );
