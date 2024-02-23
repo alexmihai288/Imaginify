@@ -1,6 +1,6 @@
 "use client";
 import React, { Dispatch } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { dataUrl, getImageSize } from "../../lib/utils";

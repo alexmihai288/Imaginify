@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form";
+} from "../ui/form";
 import { formSchema } from "./TransformationForm";
 
 type CustomFieldProps = {
