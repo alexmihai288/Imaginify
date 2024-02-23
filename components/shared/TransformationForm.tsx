@@ -117,7 +117,7 @@ export const TransformationForm = ({
     }, 1000);
   };
 
-  //TODO
+  //TODO: Update credit fee -1 or dynamic
   const onTransformHandler = async () => {
     setIsTransforming(true);
 
@@ -127,7 +127,7 @@ export const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      // await updateCredits(userId, creditFee);
+      await updateCredits(userId, -1);
     });
   };
   return (
