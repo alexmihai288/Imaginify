@@ -52,7 +52,7 @@ export const TransformedImage = ({
             {...transformationConfig}
           />
           {isTransforming && (
-            <div className="transformig-loader">
+            <div className="transforming-loader">
               <Image
                 src="/assets/icons/spinner.svg"
                 width={50}
