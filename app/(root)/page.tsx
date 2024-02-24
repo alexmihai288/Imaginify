@@ -32,15 +32,14 @@ const Home = async ({ searchParams }: SearchParamProps) => {
             </Link>
           ))}
         </ul>
-
-        <section className="sm:mt-12">
-          <Collection
-            hasSearch
-            images={images?.data}
-            totalPages={images?.totalPage}
-            page={page}
-          />
-        </section>
+      </section>
+      <section className="sm:mt-12">
+        <Collection
+          hasSearch
+          images={images?.data}
+          totalPages={images?.totalPage}
+          page={page}
+        />
       </section>
     </>
   );
