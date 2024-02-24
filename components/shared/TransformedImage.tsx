@@ -62,7 +62,7 @@ export const TransformedImage = ({
             onError={() => {
               debounce(() => {
                 setIsTransforming && setIsTransforming(false);
-              }, 8000);
+              }, 8000)();
             }}
             {...transformationConfig}
           />
@@ -72,8 +72,9 @@ export const TransformedImage = ({
                 src="/assets/icons/spinner.svg"
                 width={50}
                 height={50}
-                alt="transforming"
+                alt="spinner"
               />
+              <p className="text-white/80">Please wait...</p>
             </div>
           )}
         </div>
